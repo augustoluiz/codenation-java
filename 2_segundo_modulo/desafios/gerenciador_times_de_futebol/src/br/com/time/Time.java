@@ -85,4 +85,17 @@ public class Time {
         this.idCapitao = idCapitao;
     }
 
+    @Override
+    public String toString() {
+        return "Time{" +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
+                ", dataCriacao=" + dataCriacao +
+                ", corUniformePrincipal='" + corUniformePrincipal + '\'' +
+                ", corUniformeSecundario='" + corUniformeSecundario + '\'' +
+                ", jogadores=" + jogadores +
+                ", idCapitao=" + idCapitao +
+                '}';
+    }
+
 }

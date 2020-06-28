@@ -68,4 +68,17 @@ public class Jogador {
     public void setSalario(BigDecimal salario) {
         this.salario = salario;
     }
+
+    @Override
+    public String toString() {
+        return "Jogador{" +
+                "id=" + id +
+                ", idTime=" + idTime +
+                ", nome='" + nome + '\'' +
+                ", dataNascimento=" + dataNascimento +
+                ", nivelHabilidade=" + nivelHabilidade +
+                ", salario=" + salario +
+                '}';
+    }
+
 }

@@ -30,141 +30,100 @@ public class Controladora implements MeuTimeInterface {
 
     @Override
     public void incluirJogador(Long id, Long idTime, String nome, LocalDate dataNascimento, Integer nivelHabilidade, BigDecimal salario) {
-        Jogador jogador = buscarJogador(id);
+        jogadorExiste(id);
         Time time = buscarTime(idTime);
 
-        if(jogador != null){
-            throw new IdentificadorUtilizadoException("Já existe um jogador cadastrado com o id: "+id);
-        }
-        if(time == null){
-            throw new TimeNaoEncontradoException("O time informado não existe! idTime informado: "+idTime);
-        }
-        Jogador novoJogador = new Jogador(id, idTime, nome, dataNascimento, nivelHabilidade, salario);
-        time.addJogadorNovo(novoJogador);
+        Jogador jogador = new Jogador(id, idTime, nome, dataNascimento, nivelHabilidade, salario);
+        time.addJogadorNovo(jogador);
 
-        jogadores.add(novoJogador);
-        times.forEach(t -> {
-            if (t.getId() == time.getId()){
-                t = time;
-            }
-        });
+        jogadores.add(jogador);
+        times.forEach(t -> t = t.getId() == time.getId() ? time : t);
     }
 
     @Override
     public void definirCapitao(Long idJogador) {
         Jogador jogador = buscarJogador(idJogador);
-        if(jogador != null){
-            Time time = buscarTime(jogador.getIdTime());
-            if(time.getIdCapitado() != idJogador){
-                time.setIdCapitado(idJogador);
-            }
-        } else {
-            throw new JogadorNaoEncontradoException("O Jogador não existe! idJogador informado: "+idJogador);
-        }
+        Time time = buscarTime(jogador.getIdTime());
+        time.setIdCapitado(idJogador);
     }
 
     @Override
     public Long buscarCapitaoDoTime(Long idTime) {
         Time time = buscarTime(idTime);
-        if(time != null){
-            Long idCapitao = time.getIdCapitado();
-            if(idCapitao != null){
-                return idCapitao;
-            }
-            throw new CapitaoNaoInformadoException("Este time não possui um capitão! idTime: "+idTime);
+        Long idCapitao = time.getIdCapitado();
+        if(idCapitao != null){
+            return idCapitao;
         }
-        throw new TimeNaoEncontradoException("O time informado não existe! idTime informado: "+idTime);
+        throw new CapitaoNaoInformadoException("Este time não possui um capitão! idTime: "+idTime);
     }
 
     @Override
     public String buscarNomeJogador(Long idJogador) {
         Jogador jogador = buscarJogador(idJogador);
-        if(jogador != null){
-            return jogador.getNome();
-        }
-        throw new JogadorNaoEncontradoException("O Jogador não existe! idJogador informado: "+idJogador);
+        return jogador.getNome();
     }
 
     @Override
     public String buscarNomeTime(Long idTime) {
         Time time = buscarTime(idTime);
-        if(time != null){
-            return time.getNome();
-        }
-        throw new TimeNaoEncontradoException("O time informado não existe! idTime informado: "+idTime);
+        return time.getNome();
     }
 
     @Override
     public Long buscarJogadorMaiorSalario(Long idTime) {
         Time time = buscarTime(idTime);
-        if(time != null) {
-            return time.getJogadores().stream()
-                        .reduce((anterior, atual) -> {
-                            if (anterior.getSalario().compareTo(atual.getSalario()) == 1 ||
-                                anterior.getSalario().compareTo(atual.getSalario()) == 0 &&
-                                anterior.getId() < atual.getId()) {
-                                    atual = anterior;
-                                }
-                            return atual;
-                        })
-                        .get()
-                        .getId();
-        }
-        throw new TimeNaoEncontradoException("O time informado não existe! idTime informado: "+idTime);
+        return time.getJogadores().stream()
+                    .reduce((anterior, atual) -> {
+                          atual = anterior.getSalario().compareTo(atual.getSalario()) == 1 ||
+                                  anterior.getSalario().compareTo(atual.getSalario()) == 0 &&
+                                  anterior.getId() < atual.getId() ? anterior : atual;
+                          return atual;
+                     })
+                    .get()
+                    .getId();
     }
 
     @Override
     public BigDecimal buscarSalarioDoJogador(Long idJogador) {
         Jogador jogador = buscarJogador(idJogador);
-        if(jogador != null){
-            return jogador.getSalario();
-        }
-        throw new JogadorNaoEncontradoException("O Jogador não existe! idJogador informado: "+idJogador);
+        return jogador.getSalario();
     }
 
     @Override
     public List<Long> buscarJogadoresDoTime(Long idTime) {
         Time time = buscarTime(idTime);
-        if(time != null){
-            List<Jogador> jogadores = time.getJogadores();
-            return jogadores.stream()
-                            .map(jogador -> jogador.getId())
-                            .sorted()
-                            .collect(Collectors.toList());
-        }
-        throw new TimeNaoEncontradoException("O time informado não existe! idTime informado: "+idTime);
+        return time.getJogadores()
+                   .stream()
+                   .map(jogador -> jogador.getId())
+                   .sorted()
+                   .collect(Collectors.toList());
     }
 
     @Override
     public Long buscarMelhorJogadorDoTime(Long idTime) {
         Time time = buscarTime(idTime);
-        if(time != null){
-            List<Jogador> jogadores = time.getJogadores();
-            return jogadores.stream()
-                            .reduce((anterior, atual) -> {
-                                atual = anterior.getNivelHabilidade() > atual.getNivelHabilidade() ? anterior : atual;
-                                return atual;
-                            })
-                            .get()
-                            .getId();
-        }
-        throw new TimeNaoEncontradoException("O time informado não existe! idTime informado: "+idTime);
+        return time.getJogadores().stream()
+                   .reduce((anterior, atual) -> {
+                        atual = anterior.getNivelHabilidade() > atual.getNivelHabilidade() ? anterior : atual;
+                        return atual;
+                   })
+                   .get()
+                   .getId();
     }
 
     @Override
     public Long buscarJogadorMaisVelho(Long idTime) {
         Time time = buscarTime(idTime);
-        if(time != null){
-            List<Jogador> jogadores = time.getJogadores();
-            return jogadores.stream()
-                    .reduce((anterior, atual) -> {
-                        atual = anterior.getDataNascimento().isBefore(atual.getDataNascimento()) || anterior.getDataNascimento().isEqual(atual.getDataNascimento()) && anterior.getId() < atual.getId() ? anterior : atual;
+        return time.getJogadores()
+                   .stream()
+                   .reduce((anterior, atual) -> {
+                        atual = anterior.getDataNascimento().isBefore(atual.getDataNascimento()) ||
+                                anterior.getDataNascimento().isEqual(atual.getDataNascimento()) &&
+                                anterior.getId() < atual.getId() ? anterior : atual;
                         return atual;
-                    })
-                    .get()
-                    .getId();
-        }
-        throw new TimeNaoEncontradoException("O time informado não existe! idTime informado: "+idTime);
+                   })
+                   .get()
+                   .getId();
     }
 
     @Override
@@ -180,35 +139,35 @@ public class Controladora implements MeuTimeInterface {
         Comparator<Jogador> comparaHabilidade = Comparator.comparing(Jogador::getNivelHabilidade)
                                                           .thenComparing(comparaId);
         List<Jogador> jogadoresPorHabilidade = jogadores;
-        Collections.sort(jogadoresPorHabilidade, comparaHabilidade.reversed());
-        return jogadoresPorHabilidade.stream().map(j -> j.getId()).limit(top).collect(Collectors.toList());
+        jogadoresPorHabilidade.sort(comparaHabilidade.reversed());
+
+        return jogadoresPorHabilidade.stream()
+                                     .map(j -> j.getId())
+                                     .limit(top)
+                                     .collect(Collectors.toList());
     }
 
     private Jogador buscarJogador(Long idJogador){
-        Jogador jogador;
-        try {
-            jogador = jogadores.stream()
-                               .filter(jogadorStream -> jogadorStream.getId().equals(idJogador))
-                               .findFirst()
-                               .get();
-        } catch (NoSuchElementException nse){
-            jogador = null;
-        }
+        return jogadores.stream()
+                        .filter(jogadorStream -> jogadorStream.getId().equals(idJogador))
+                        .findFirst()
+                        .orElseThrow(() -> new JogadorNaoEncontradoException("O Jogador não existe! idJogador informado: "+idJogador));
+    }
 
-        return jogador;
+    private void jogadorExiste(Long idJogador){
+        try {
+            buscarJogador(idJogador);
+            throw new IdentificadorUtilizadoException("Já existe um jogador cadastrado com o id: "+idJogador);
+        } catch (JogadorNaoEncontradoException jne){
+            return;
+        }
     }
 
     private Time buscarTime(Long idTime){
-        Time time;
-        try {
-            time = times.stream()
-                        .filter(t -> t.getId() == idTime)
-                        .findFirst()
-                        .get();
-        } catch (NoSuchElementException nse){
-            time = null;
-        }
-
-        return time;
+        return times.stream()
+                    .filter(t -> t.getId() == idTime)
+                    .findFirst()
+                    .orElseThrow(() -> new TimeNaoEncontradoException("O time informado não existe! idTime informado: "+idTime));
     }
+
 }
