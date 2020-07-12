@@ -5,7 +5,7 @@ import java.util.Map;
 public class StatisticUtil {
 
     public static int average(int[] elements) {
-        return Arrays.stream(elements).reduce(0, (anterior, atual) -> atual + anterior) / elements.length;
+        return (int) Arrays.stream(elements).average().getAsDouble();
     }
 
     public static int mode(int[] elements) {
