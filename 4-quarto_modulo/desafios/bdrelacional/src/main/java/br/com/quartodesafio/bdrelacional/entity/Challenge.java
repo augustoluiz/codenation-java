@@ -3,6 +3,7 @@ package br.com.quartodesafio.bdrelacional.entity;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.sql.Timestamp;
+import java.util.List;
 
 @Entity
 public class Challenge {
@@ -22,6 +23,9 @@ public class Challenge {
     @NotBlank
     @Column(nullable = false)
     private Timestamp created_at;
+
+    @OneToMany
+    private List<Acceleration> accelerations;
 
     public int getId() {
         return id;
@@ -53,5 +57,13 @@ public class Challenge {
 
     public void setCreated_at(Timestamp created_at) {
         this.created_at = created_at;
+    }
+
+    public List<Acceleration> getAccelerations() {
+        return accelerations;
+    }
+
+    public void setAccelerations(List<Acceleration> accelerations) {
+        this.accelerations = accelerations;
     }
 }
