@@ -66,4 +66,5 @@ public class Challenge {
     public void setAccelerations(List<Acceleration> accelerations) {
         this.accelerations = accelerations;
     }
+
 }

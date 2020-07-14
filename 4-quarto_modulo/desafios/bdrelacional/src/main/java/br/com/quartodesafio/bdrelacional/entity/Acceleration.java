@@ -19,7 +19,8 @@ public class Acceleration {
     @Column(length = 50, nullable = false)
     private String slug;
 
-    //challenge_id
+    @ManyToOne
+    private Challenge challenge;
 
     @NotBlank
     @Column(nullable = false)
@@ -30,7 +31,7 @@ public class Acceleration {
     }
 
     public void setId(int id) {
-        this.id = id;
+       this.id = id;
     }
 
     public String getName() {
@@ -55,5 +56,13 @@ public class Acceleration {
 
     public void setCreated_at(Timestamp created_at) {
         this.created_at = created_at;
+    }
+
+    public Challenge getChallenge() {
+        return challenge;
+    }
+
+    public void setChallenge(Challenge challenge) {
+        this.challenge = challenge;
     }
 }
