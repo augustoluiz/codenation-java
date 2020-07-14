@@ -22,7 +22,6 @@ public class Acceleration {
     @ManyToOne
     private Challenge challenge;
 
-    @NotBlank
     @Column(nullable = false)
     private Timestamp created_at;
 
