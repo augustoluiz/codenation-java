@@ -1,9 +1,8 @@
 package br.com.quartodesafio.bdrelacional.entity;
 
-import com.sun.istack.NotNull;
-
 import javax.persistence.Embeddable;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Objects;
 

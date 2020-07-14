@@ -1,23 +1,29 @@
 package br.com.quartodesafio.bdrelacional.entity;
 
-import com.sun.istack.NotNull;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import java.sql.Timestamp;
+import javax.persistence.EntityListeners;
+import javax.validation.constraints.NotNull;
+import java.util.Date;
 
+@EntityListeners({AuditingEntityListener.class})
 @Entity
 public class Candidate {
 
     @EmbeddedId
     private CandidateIdentity candidateIdentity;
 
-    @Column(nullable = false)
+    @NotNull
     private int status;
 
-    @Column(nullable = false)
-    private Timestamp created_at;
+    @NotNull
+    @CreatedDate
+    @Column(name = "created_at")
+    private Date created_at;
 
     public CandidateIdentity getCandidateIdentity() {
         return candidateIdentity;
@@ -35,11 +41,11 @@ public class Candidate {
         this.status = status;
     }
 
-    public Timestamp getCreated_at() {
+    public Date getCreated_at() {
         return created_at;
     }
 
-    public void setCreated_at(Timestamp created_at) {
+    public void setCreated_at(Date created_at) {
         this.created_at = created_at;
     }
 

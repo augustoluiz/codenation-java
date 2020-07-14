@@ -1,21 +1,29 @@
 package br.com.quartodesafio.bdrelacional.entity;
 
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import java.sql.Timestamp;
+import javax.persistence.EntityListeners;
+import javax.validation.constraints.NotNull;
+import java.util.Date;
 
+@EntityListeners({AuditingEntityListener.class})
 @Entity
 public class Submission {
 
     @EmbeddedId
     private SubmissionIdentity submissionIdentity;
 
-    @Column(nullable = false)
+    @NotNull
     private float score;
 
-    @Column(nullable = false)
-    private Timestamp created_at;
+    @NotNull
+    @CreatedDate
+    @Column(name = "created_at")
+    private Date created_at;
 
     public SubmissionIdentity getSubmissionIdentity() {
         return submissionIdentity;
@@ -33,11 +41,11 @@ public class Submission {
         this.score = score;
     }
 
-    public Timestamp getCreated_at() {
+    public Date getCreated_at() {
         return created_at;
     }
 
-    public void setCreated_at(Timestamp created_at) {
+    public void setCreated_at(Date created_at) {
         this.created_at = created_at;
     }
 }

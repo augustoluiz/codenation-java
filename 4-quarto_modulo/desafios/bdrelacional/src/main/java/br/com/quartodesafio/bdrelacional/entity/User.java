@@ -1,39 +1,52 @@
 package br.com.quartodesafio.bdrelacional.entity;
 
-import com.sun.istack.NotNull;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
+@EntityListeners({AuditingEntityListener.class})
 @Entity
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @NotBlank
-    @Column(length = 100, nullable = false)
-    private String full_name;
+    @NotNull
+    @Column(length = 100)
+    @Size(max = 100)
+    private String fullname;
 
     @NotBlank
-    @Column(length = 100, nullable = false)
+    @NotNull
+    @Email
+    @Column(length = 100)
+    @Size(max = 100)
     private String email;
 
     @NotBlank
-    @Column(length = 50, nullable = false)
+    @NotNull
+    @Column(length = 50)
+    @Size(max = 50)
     private String nickname;
 
     @NotBlank
-    @Column(length = 255, nullable = false)
+    @NotNull
+    @Size(max = 255)
     private String password;
 
-    @NotBlank
-    @Column(nullable = false)
-    private Timestamp created_at;
+    @NotNull
+    @CreatedDate
+    @Column(name = "created_at")
+    private Date created_at;
 
     @OneToMany
     private List<Candidate> candidate;
@@ -50,11 +63,11 @@ public class User {
     }
 
     public String getFull_name() {
-        return full_name;
+        return fullname;
     }
 
-    public void setFull_name(String full_name) {
-        this.full_name = full_name;
+    public void setFull_name(String fullname) {
+        this.fullname = fullname;
     }
 
     public String getEmail() {
@@ -81,11 +94,11 @@ public class User {
         this.password = password;
     }
 
-    public Timestamp getCreated_at() {
+    public Date getCreated_at() {
         return created_at;
     }
 
-    public void setCreated_at(Timestamp created_at) {
+    public void setCreated_at(Date created_at) {
         this.created_at = created_at;
     }
 
