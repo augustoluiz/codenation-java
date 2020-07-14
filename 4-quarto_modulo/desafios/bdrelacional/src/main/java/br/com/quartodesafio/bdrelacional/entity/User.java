@@ -38,6 +38,9 @@ public class User {
     @OneToMany
     private List<Candidate> candidate;
 
+    @OneToMany
+    private List<Submission> submissions;
+
     public int getId() {
         return id;
     }
@@ -92,5 +95,13 @@ public class User {
 
     public void setCandidate(List<Candidate> candidate) {
         this.candidate = candidate;
+    }
+
+    public List<Submission> getSubmissions() {
+        return submissions;
+    }
+
+    public void setSubmissions(List<Submission> submissions) {
+        this.submissions = submissions;
     }
 }

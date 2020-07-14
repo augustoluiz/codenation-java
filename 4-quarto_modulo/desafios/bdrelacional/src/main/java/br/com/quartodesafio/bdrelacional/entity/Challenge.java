@@ -26,6 +26,9 @@ public class Challenge {
     @OneToMany
     private List<Acceleration> accelerations;
 
+    @OneToMany
+    private List<Submission> submissions;
+
     public int getId() {
         return id;
     }
@@ -66,4 +69,11 @@ public class Challenge {
         this.accelerations = accelerations;
     }
 
+    public List<Submission> getSubmissions() {
+        return submissions;
+    }
+
+    public void setSubmissions(List<Submission> submissions) {
+        this.submissions = submissions;
+    }
 }
