@@ -6,6 +6,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.sql.Timestamp;
+import java.util.List;
 
 @Entity
 public class User {
@@ -33,6 +34,9 @@ public class User {
     @NotBlank
     @Column(nullable = false)
     private Timestamp created_at;
+
+    @OneToMany
+    private List<Candidate> candidate;
 
     public int getId() {
         return id;
@@ -80,5 +84,13 @@ public class User {
 
     public void setCreated_at(Timestamp created_at) {
         this.created_at = created_at;
+    }
+
+    public List<Candidate> getCandidate() {
+        return candidate;
+    }
+
+    public void setCandidate(List<Candidate> candidate) {
+        this.candidate = candidate;
     }
 }

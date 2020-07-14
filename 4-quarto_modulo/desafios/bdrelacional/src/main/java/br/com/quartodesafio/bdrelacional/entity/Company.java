@@ -2,7 +2,9 @@ package br.com.quartodesafio.bdrelacional.entity;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
+import java.util.List;
 
 @Entity
 public class Company {
@@ -21,6 +23,10 @@ public class Company {
 
     @Column(nullable = false)
     private Timestamp created_at;
+
+    @OneToMany
+    private List<Candidate> candidate;
+
 
     public int getId() {
         return id;
@@ -52,5 +58,13 @@ public class Company {
 
     public void setCreated_at(Timestamp created_at) {
         this.created_at = created_at;
+    }
+
+    public List<Candidate> getCandidate() {
+        return candidate;
+    }
+
+    public void setCandidate(List<Candidate> candidate) {
+        this.candidate = candidate;
     }
 }
