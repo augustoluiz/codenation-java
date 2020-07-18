@@ -8,6 +8,8 @@ import java.util.Optional;
 
 public interface UserServiceInterface extends ServiceInterface<User> {
 
+    List<User> findAll();
+
     Optional<User> findById(Long userId);
 
     List<User> findByAccelerationName(String name);

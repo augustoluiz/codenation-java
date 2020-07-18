@@ -1,6 +1,7 @@
 package com.quintomodulo.manipuladados.challenge.model;
 
 import com.quintomodulo.manipuladados.acceleration.model.Acceleration;
+import com.quintomodulo.manipuladados.submission.model.Submission;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
