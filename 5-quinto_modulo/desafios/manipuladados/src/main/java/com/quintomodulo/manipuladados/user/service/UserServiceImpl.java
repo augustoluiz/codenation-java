@@ -16,7 +16,6 @@ public class UserServiceImpl implements UserServiceInterface{
 
     @Override
     public List<User> findAll() {
-        //userRepository.findAll().forEach(a -> System.out.println(a.toString()));
         return this.userRepository.findAll();
     }
 
