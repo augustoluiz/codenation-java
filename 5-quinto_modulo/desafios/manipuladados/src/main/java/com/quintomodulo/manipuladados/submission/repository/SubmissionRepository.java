@@ -8,6 +8,7 @@ import org.springframework.data.repository.query.Param;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Optional;
 
 public interface SubmissionRepository extends CrudRepository<Submission, SubmissionId> {
 
@@ -16,7 +17,7 @@ public interface SubmissionRepository extends CrudRepository<Submission, Submiss
     @Query(value = "SELECT score FROM submission " +
             "WHERE challenge_id = :challengeId " +
             "order by score desc LIMIT 1", nativeQuery = true)
-    BigDecimal findHigherScoreByChallengeId(@Param("challengeId") Long challengeId);
+    Optional<BigDecimal> findHigherScoreByChallengeId(@Param("challengeId") Long challengeId);
 
     @Query(value = "SELECT su.user_id, su.challenge_id, su.score, su.created_at " +
             "FROM submission as su " +
