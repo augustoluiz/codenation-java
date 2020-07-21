@@ -1,5 +1,6 @@
 package com.quintomodulo.manipuladados.acceleration.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.quintomodulo.manipuladados.candidate.model.Candidate;
 import com.quintomodulo.manipuladados.challenge.model.Challenge;
 import lombok.AllArgsConstructor;
@@ -36,12 +37,73 @@ public class Acceleration {
     private String slug;
 
     @ManyToOne
+    @JsonIgnore
     private Challenge challenge;
 
     @OneToMany(mappedBy = "id.acceleration")
+    @JsonIgnore
     private List<Candidate> candidates;
 
     @CreatedDate
     private LocalDateTime createdAt;
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getSlug() {
+        return slug;
+    }
+
+    public void setSlug(String slug) {
+        this.slug = slug;
+    }
+
+    public Challenge getChallenge() {
+        return challenge;
+    }
+
+    public void setChallenge(Challenge challenge) {
+        this.challenge = challenge;
+    }
+
+    public List<Candidate> getCandidates() {
+        return candidates;
+    }
+
+    public void setCandidates(List<Candidate> candidates) {
+        this.candidates = candidates;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    @Override
+    public String toString() {
+        return "Acceleration{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", slug='" + slug + '\'' +
+                ", challenge=" + challenge +
+                ", candidates=" + candidates +
+                ", createdAt=" + createdAt +
+                '}';
+    }
 }

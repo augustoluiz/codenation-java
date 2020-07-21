@@ -18,19 +18,12 @@ public interface SubmissionRepository extends CrudRepository<Submission, Submiss
             "order by score desc LIMIT 1", nativeQuery = true)
     BigDecimal findHigherScoreByChallengeId(@Param("challengeId") Long challengeId);
 
-    @Query(value = "select su.user_id, " +
-            "       su.challenge_id, " +
-            "       su.score, " +
-            "       su.created_at " +
-            "from submission as su " +
-            "INNER JOIN users as us " +
-            "ON (su.user_id = us.id) " +
-            "INNER JOIN candidate as ca " +
-            "ON (us.id = ca.user_id) " +
-            "INNER JOIN acceleration as ac " +
-            "ON (ca.acceleration_id = ac.id) " +
+    @Query(value = "SELECT su.user_id, su.challenge_id, su.score, su.created_at " +
+            "FROM submission as su " +
             "INNER JOIN challenge as ch " +
-            "ON (ac.challenge_id = ch.id) " +
+            "ON (su.challenge_id = ch.id) " +
+            "INNER JOIN acceleration as ac " +
+            "ON (ch.id = ac.challenge_id) " +
             "WHERE ch.id = :challengeId AND " +
             "ac.id = :accelerationId", nativeQuery = true)
     List<Submission> findByChallengeIdAndAccelerationId(@Param("challengeId") Long challengeId,
