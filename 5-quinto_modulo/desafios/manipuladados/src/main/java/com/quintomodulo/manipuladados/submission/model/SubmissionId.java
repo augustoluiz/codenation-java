@@ -1,5 +1,6 @@
 package com.quintomodulo.manipuladados.submission.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.quintomodulo.manipuladados.challenge.model.Challenge;
 import com.quintomodulo.manipuladados.user.model.User;
 import lombok.AllArgsConstructor;
@@ -20,9 +21,11 @@ import java.io.Serializable;
 public class SubmissionId implements Serializable {
 
     @ManyToOne
+    @JsonIgnore
     private Challenge challenge;
 
     @ManyToOne
+    @JsonIgnore
     private User user;
 
 }

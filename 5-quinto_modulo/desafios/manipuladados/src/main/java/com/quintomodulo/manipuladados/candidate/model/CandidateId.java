@@ -1,5 +1,6 @@
 package com.quintomodulo.manipuladados.candidate.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.quintomodulo.manipuladados.acceleration.model.Acceleration;
 import com.quintomodulo.manipuladados.company.model.Company;
 import com.quintomodulo.manipuladados.user.model.User;
@@ -24,9 +25,11 @@ public class CandidateId implements Serializable {
     private User user;
 
     @ManyToOne
+    @JsonIgnore
     private Acceleration acceleration;
 
     @ManyToOne
+    @JsonIgnore
     private Company company;
 
     public User getUser() {

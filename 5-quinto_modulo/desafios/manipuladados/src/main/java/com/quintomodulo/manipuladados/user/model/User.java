@@ -1,5 +1,6 @@
 package com.quintomodulo.manipuladados.user.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.quintomodulo.manipuladados.candidate.model.Candidate;
 import com.quintomodulo.manipuladados.submission.model.Submission;
 import lombok.AllArgsConstructor;
@@ -53,9 +54,11 @@ public class User {
     private LocalDateTime createdAt;
 
     @OneToMany(mappedBy = "id.user")
+    @JsonIgnore
     private List<Candidate> candidates;
 
     @OneToMany(mappedBy = "id.user")
+    @JsonIgnore
     private List<Submission> submissions;
     
 }
