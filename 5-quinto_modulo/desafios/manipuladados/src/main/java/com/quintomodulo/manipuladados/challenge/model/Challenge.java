@@ -47,4 +47,63 @@ public class Challenge {
     @CreatedDate
     private LocalDateTime createdAt;
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getSlug() {
+        return slug;
+    }
+
+    public void setSlug(String slug) {
+        this.slug = slug;
+    }
+
+    public List<Acceleration> getAccelerations() {
+        return accelerations;
+    }
+
+    public void setAccelerations(List<Acceleration> accelerations) {
+        this.accelerations = accelerations;
+    }
+
+    public List<Submission> getSubmissions() {
+        return submissions;
+    }
+
+    public void setSubmissions(List<Submission> submissions) {
+        this.submissions = submissions;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    @Override
+    public String toString() {
+        return "Challenge{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", slug='" + slug + '\'' +
+                ", accelerations=" + accelerations +
+                ", submissions=" + submissions +
+                ", createdAt=" + createdAt +
+                '}';
+    }
 }

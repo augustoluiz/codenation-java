@@ -11,7 +11,7 @@ public interface CompanyRepository  extends CrudRepository<Company, Long> {
 
     List<Company> findAll();
 
-    @Query(value = "SELECT co.id, co.name, co.slug, co.created_at FROM company as co " +
+    @Query(value = "SELECT DISTINCT co.id, co.name, co.slug, co.created_at FROM company as co " +
             "INNER JOIN candidate as ca " +
             "ON (co.id = ca.company_id) " +
             "INNER JOIN acceleration as ac " +
