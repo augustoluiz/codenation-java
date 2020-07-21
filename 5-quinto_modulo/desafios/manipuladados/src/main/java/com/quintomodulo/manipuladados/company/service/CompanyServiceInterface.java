@@ -8,6 +8,8 @@ import java.util.Optional;
 
 public interface CompanyServiceInterface extends ServiceInterface<Company> {
 
+    List<Company> findAll();
+
     Optional<Company> findById(Long id);
 
     List<Company> findByAccelerationId(Long accelerationId);

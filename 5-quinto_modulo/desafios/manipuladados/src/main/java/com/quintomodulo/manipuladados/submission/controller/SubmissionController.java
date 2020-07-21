@@ -32,7 +32,7 @@ public class SubmissionController {
     }
 
     @PostMapping
-    public Submission save(Submission submission){
+    public Submission save(@RequestBody Submission submission){
         return this.submissionServiceInterface.save(submission);
     }
 

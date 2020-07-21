@@ -35,7 +35,7 @@ public class AccelerationController {
     }
 
     @PostMapping
-    public Acceleration save(Acceleration acceleration){
+    public Acceleration save(@RequestBody Acceleration acceleration){
         return this.accelerationServiceInterface.save(acceleration);
     }
 

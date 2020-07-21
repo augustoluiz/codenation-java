@@ -1,5 +1,6 @@
 package com.quintomodulo.manipuladados.company.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.quintomodulo.manipuladados.candidate.model.Candidate;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -35,6 +36,7 @@ public class Company {
     private String slug;
 
     @OneToMany(mappedBy = "id.company")
+    @JsonIgnore
     private List<Candidate> candidates;
 
     @CreatedDate
