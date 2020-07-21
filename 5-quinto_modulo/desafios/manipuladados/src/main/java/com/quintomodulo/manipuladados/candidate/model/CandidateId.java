@@ -29,4 +29,36 @@ public class CandidateId implements Serializable {
     @ManyToOne
     private Company company;
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Acceleration getAcceleration() {
+        return acceleration;
+    }
+
+    public void setAcceleration(Acceleration acceleration) {
+        this.acceleration = acceleration;
+    }
+
+    public Company getCompany() {
+        return company;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
+    }
+
+    @Override
+    public String toString() {
+        return "CandidateId{" +
+                "user=" + user +
+                ", acceleration=" + acceleration +
+                ", company=" + company +
+                '}';
+    }
 }

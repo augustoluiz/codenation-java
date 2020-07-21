@@ -9,6 +9,8 @@ import java.util.Optional;
 
 public interface CandidateServiceInterface extends ServiceInterface<Candidate> {
 
+    List<Candidate> findAll();
+
     Optional<Candidate> findById(CandidateId id);
 
     Optional<Candidate> findById(Long userId, Long companyId, Long accelerationId);
