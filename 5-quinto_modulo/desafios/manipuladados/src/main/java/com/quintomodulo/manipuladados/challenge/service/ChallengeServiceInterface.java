@@ -7,6 +7,8 @@ import java.util.List;
 
 public interface ChallengeServiceInterface extends ServiceInterface<Challenge> {
 
+    List<Challenge> findAll();
+
     List<Challenge> findByAccelerationIdAndUserId(Long accelerationId, Long userId);
 
 }

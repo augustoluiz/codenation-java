@@ -1,5 +1,6 @@
 package com.quintomodulo.manipuladados.challenge.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.quintomodulo.manipuladados.acceleration.model.Acceleration;
 import com.quintomodulo.manipuladados.submission.model.Submission;
 import lombok.AllArgsConstructor;
@@ -36,9 +37,11 @@ public class Challenge {
     private String slug;
 
     @OneToMany(mappedBy = "challenge")
+    @JsonIgnore
     private List<Acceleration> accelerations;
 
     @OneToMany(mappedBy = "id.challenge")
+    @JsonIgnore
     private List<Submission> submissions;
 
     @CreatedDate
