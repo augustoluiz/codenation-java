@@ -47,6 +47,13 @@ public class Main {
         ids1.add(8L);
         System.out.println(osi.groupProductsBySale(ids1).toString());
 
+        List<Long> ids3 = new ArrayList<>();
+        ids3.add(1L);
+        ids3.add(2L);
+        ids3.add(Long.MAX_VALUE);
+        osi.findProductsById(ids).forEach(p -> System.out.println("a "+p.toString()));
+        System.out.println(osi.findProductsById(ids).size());
+
     }
 
 }

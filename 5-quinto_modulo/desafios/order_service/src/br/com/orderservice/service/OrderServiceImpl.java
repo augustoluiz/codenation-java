@@ -34,7 +34,10 @@ public class OrderServiceImpl implements OrderService{
      */
     @Override
     public Set<Product> findProductsById(List<Long> ids) {
-        return ids.stream().map(id -> this.productRepository.findById(id).get()).collect(Collectors.toSet());
+        return ids.stream().map(id -> this.productRepository.findById(id))
+                .filter(Optional::isPresent)
+                .map(Optional::get)
+                .collect(Collectors.toSet());
     }
 
     /**
@@ -50,16 +53,7 @@ public class OrderServiceImpl implements OrderService{
      */
     @Override
     public Map<Boolean, List<Product>> groupProductsBySale(List<Long> productIds) {
-        Map<Boolean, List<Product>> mapProductsBySale = new HashMap<>();
-        productIds.stream()
-                .map(id -> this.productRepository.findById(id).get())
-                .collect(Collectors.toList())
-                .forEach(p -> {
-                    List<Product> ps = mapProductsBySale.getOrDefault(p.getIsSale(), new ArrayList<>());
-                    ps.add(p);
-                    mapProductsBySale.put(p.getIsSale(), ps);
-                });
-        return mapProductsBySale;
+        return findProductsById(productIds).stream().collect(Collectors.groupingBy(Product::getIsSale));
     }
 
 }
