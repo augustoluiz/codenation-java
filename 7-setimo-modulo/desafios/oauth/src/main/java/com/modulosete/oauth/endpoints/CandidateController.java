@@ -1,9 +1,11 @@
 package com.modulosete.oauth.endpoints;
 
 import com.modulosete.oauth.dto.CandidateDTO;
+
 import com.modulosete.oauth.mappers.CandidateMapper;
 import com.modulosete.oauth.service.impl.CandidateService;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -15,7 +17,10 @@ import java.util.List;
 @AllArgsConstructor
 public class CandidateController {
 
+    @Autowired
     private CandidateService service;
+
+    @Autowired
     private CandidateMapper mapper;
 
     @GetMapping("/candidate/{userId}/{accelerationId}/{companyId}")
